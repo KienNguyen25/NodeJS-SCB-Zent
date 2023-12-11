@@ -1,10 +1,12 @@
 const express = require('express');
 //import body parser
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+require('dotenv').config();
 const app = express();
 const port = 4000;
 const userRoutes = require('./routes/v1/userRoutes');
-const API_V1 = require('./routes/v1/index')
+const API_V1 = require('./routes/v1/index');
+const errorHandle = require('./middlewares/errorHandler');
 
 app.get('/', (req, res) => {
   res.send('<h1>Hello World!- ok 1234</h1>');
@@ -22,7 +24,7 @@ app.use(bodyParser.json())
 // app.use('/users', userRoutes);
 
 app.use('/v1',API_V1);
-
+app.use(errorHandle);
 
 
 
