@@ -1,22 +1,27 @@
+const userService = require("../services/userService");
+
 class UserController {
     find = (req, res , next)=> {
         try {
             const {page, sort} = req.query;
             console.log(page,sort);
-            abc();
             res.status(200).json({msg: `get param`});
         } catch (error) {
            throw error;
         }
     }
 
-    create = (req, res, next) =>{
+    create = async(req, res, next) =>{
         try {
+            const {username , email, phone, age} = req.body;
             console.log("create a user");
-            const {username, password} = req.body;
-            abc();
+            let data = {
+                username, email, phone,age
+            }
+            const user =  await userService.create(data);
             res.status(200).json({
-                username, password
+                // username, password, phone, age
+                user
             })
         } catch (error) {
            throw error;
