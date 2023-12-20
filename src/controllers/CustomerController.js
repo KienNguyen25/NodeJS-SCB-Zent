@@ -1,45 +1,69 @@
+const CustomerService = require("../services/CustomerService");
+
 class CustomerController {
-    find = (req, res, next) => {
+    getAll = async (req, res , next)=> {
         try {
-            const {page, sort} = req.query;
-            console.log(page,sort);
-            res.status(200).json({msg: `get param page = ${page} va sort = ${sort}`});
+           //GOi den services
+           const customers = await CustomerService.getAll();
+           res.status(200).json({
+            customers
+        })
         } catch (error) {
-            throw error
+           throw error;
         }
     }
-    create = (req,res, next) => {
+    create = async (req,res, next) => {
         try {
-            const {name, password,sdt,email} = req.body;
+            const { fullName, email, address, gender, birthYear,phone} = req.body;
+            console.log("create a Customer");
+            let data = {
+                fullName, email, address, gender, birthYear,phone
+            }
+            const customer = await CustomerService.create(data);
             res.status(200).json({
-              name,
-              password,
-              sdt,
-              email
+                customer
             })
         } catch (error) {
             throw error
         }
     }
-    update = (req,res, next) => {
+    update = async(req, res, next) =>{
         try {
-            const {name, password,sdt,email} = req.body;
+            const { fullName, email, address, gender, birthYear,phone} = req.body;
+            const {id} = req.params;
+            console.log("updated customer");
+            let data = {
+                fullName, email, address, gender, birthYear,phone
+            }
+            const result =  await CustomerService.update(id, data);
+            if (result) {
+                res.status(200).json({'msg' : 'updated success'})
+            } else {
+                throw new Error('updated fail');
+            }
             res.status(200).json({
-                name,
-                password,
-                sdt,
-                email
-              })
+                // username, password, phone, age
+                customer
+            })
         } catch (error) {
-            throw error
+           throw error;
         }
     }
-    delete = (req,res,next) => {
+    
+    delete = async (req,res,next) => {
         try {
-            let id = req.params.id;
-            res.status(200).json({msg: `Xoa Customer co id = ${id}`});
+            const {id} = req.params;
+            const result =  await CustomerService.delete(id);
+
+            if (result) {
+                res.status(200).json({'msg' : 'Deleted success'})
+            } else {
+                throw new Error('Deleted fail');
+            }
+            // let id = req.params.id;
+            // res.status(200).json({msg: `Xoa User co id = ${id}`});
         } catch (error) {
-            throw error
+           throw error;
         }
     }
 }

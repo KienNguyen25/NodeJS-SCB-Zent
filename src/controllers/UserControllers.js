@@ -1,11 +1,14 @@
 const userService = require("../services/userService");
 
 class UserController {
-    find = (req, res , next)=> {
+getAll = async (req, res , next)=> {
         try {
-            const {page, sort} = req.query;
-            console.log(page,sort);
-            res.status(200).json({msg: `get param`});
+           //GOi den services
+           const users = await userService.getAll();
+           res.status(200).json({
+            // username, password, phone, age
+            users
+        })
         } catch (error) {
            throw error;
         }
@@ -28,24 +31,43 @@ class UserController {
         }
     }
 
-    update = (req,res, next) => {
+    update = async(req, res, next) =>{
         try {
-            const {email, password, name, address} = req.body;
+            const {username , email, phone, age} = req.body;
+            const {id} = req.params;
+            console.log("updated user");
+            let data = {
+                username, email, phone,age
+            }
+            const result =  await userService.update(id, data);
+            if (result) {
+                res.status(200).json({'msg' : 'updated success'})
+            } else {
+                throw new Error('updated fail');
+            }
             res.status(200).json({
-                email,
-                password,
-                name,
-                address
-              })
+                // username, password, phone, age
+                user
+            })
         } catch (error) {
            throw error;
         }
     }
 
-    delete = (req,res,next) => {
+   
+
+    delete = async (req,res,next) => {
         try {
-            let id = req.params.id;
-            res.status(200).json({msg: `Xoa User co id = ${id}`});
+            const {id} = req.params;
+            const result =  await userService.delete(id);
+
+            if (result) {
+                res.status(200).json({'msg' : 'Deleted success'})
+            } else {
+                throw new Error('Deleted fail');
+            }
+            // let id = req.params.id;
+            // res.status(200).json({msg: `Xoa User co id = ${id}`});
         } catch (error) {
            throw error;
         }

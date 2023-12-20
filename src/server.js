@@ -7,6 +7,9 @@ const port = 3000;
 const userRoutes = require('./routes/v1/userRoutes');
 const API_V1 = require('./routes/v1/index');
 const errorHandle = require('./middlewares/errorHandler');
+//connect db
+const db = require('./configs/mongodb');
+db.connect();
 
 app.get('/', (req, res) => {
   res.send('<h1>Hello World!- ok 1234</h1>');

@@ -22,7 +22,7 @@ const router = express.Router();
 //     res.status(200).json({msg: `get param`});
 
 // });
-router.get('/', UserControllers.find)
+router.get('/', UserControllers.getAll)
 
 // router.post('/create', (req, res) =>{
 //   // const {page, sort} = req.query;
@@ -37,9 +37,7 @@ router.get('/', UserControllers.find)
 //   })
 // });
 router.post('/', UserControllers.create);
-router.put('/update', UserControllers.update);
+router.put('/update/:id', UserControllers.update);
 router.delete('/delete/:id', UserControllers.delete)
-
-
 
 module.exports = router;

@@ -34,9 +34,9 @@ const router = express.Router();
 //     res.status(200).json({msg: `Xoa Customer co id = ${id}`});
     
 // })
-router.get('/', ProductController.find);
+router.get('/', ProductController.getAll);
 router.post('/create', ProductController.create);
-router.put('/update', ProductController.update);
+router.put('/update/:id', ProductController.update);
 router.delete('/delete/:id', ProductController.delete);
 
 module.exports = router;
