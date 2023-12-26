@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 require('dotenv').config();
 const app = express();
 const port = 3000;
-const userRoutes = require('./routes/v1/userRoutes');
+// const userRoutes = require('./routes/v1/userRoutes');
 const API_V1 = require('./routes/v1/index');
 const errorHandle = require('./middlewares/errorHandler');
 //connect db
