@@ -48,21 +48,20 @@ class ProductController {
             throw error
         }
     }
-    delete = async (req,res,next) => {
-        try {
-            const {id} = req.params;
-            const result =  await ProductService.delete(id);
+    // delete = async (req,res,next) => {
+    //     try {
+    //         const {id} = req.params;
+    //         const result =  await ProductService.delete(id);
 
-            if (result) {
-                res.status(200).json({'msg' : 'Deleted success'})
-            } else {
-                throw new Error('Deleted fail');
-            }
-            // let id = req.params.id;
-            // res.status(200).json({msg: `Xoa User co id = ${id}`});
-        } catch (error) {
-           throw error;
-        }
-    }
+    //         if (result) {
+    //             res.status(200).json({'msg' : 'Deleted success'})
+    //         } else {
+    //             throw new Error('Deleted fail');
+    //         }
+
+    //     } catch (error) {
+    //        throw error;
+    //     }
+    // }
 }
 module.exports = new ProductController();
